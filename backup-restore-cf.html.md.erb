@@ -1,0 +1,45 @@
+---
+title: Backing up and restoring Cloud Foundry
+owner: BBR
+---
+
+This topic describes how to use BOSH Backup and Restore (BBR) to backup and restore a Cloud Foundry deployment.
+
+During the backup, BBR stops the Cloud Controller API and the Cloud Controller workers to create a consistent backup. Only the API functionality, like pushing applications or using the Cloud Foundry Command Line Interface (cf CLI) are affected. The deployed applications do not experience downtime.
+
+<div class="note warning">
+  <strong>Warnings</strong>:
+  <ul>
+    <li><strong>Backup artifacts can contain secrets.</strong> Secure backup artifacts by using encryption or other means. </li>
+    <li><strong>The restore is a destructive operation.</strong> If it fails, the environment may be left in an unusable state and require reprovisioning.</li>
+    <li><strong>The Cloud Controller API will stop sending and receiving calls</strong> for the duration of the restore process.</li>
+    <li><strong>BBR does not back up any service data.</strong></li>
+    <li><strong>Using an external blobstore or an external MySQL database results in an unusable restore</strong> even if the restore appears to run successfully.</li>
+    <li><strong>BBR only supports backup and restore of environments with zero or one CredHub instances.</strong></li>
+  </ul>
+</div>
+
+## <a id='configuring-cf'></a> Configuring Cloud Foundry for BBR
+
+Make sure your Cloud Foundry is correctly configured to be backed up and restore by following the instructions in [Configuring Cloud Foundry for BOSH Backup and Restore](./cf-backup.html).
+
+## <a id='backup-cf'></a> Backing up Cloud Foundry with BBR
+
+- setup jumpbox?
+- CC encryption creds?
+- Check your deployment
+- Back up your BOSH director
+- Back up your Cloud Foundry deployment
+- validation?
+
+## <a id='restore-cf'></a> Restoring Cloud Foundry with BBR
+
+- recreate iaas env?
+- deploy bosh?
+- jumpbox?
+- Restore your BOSH director
+- bosh cck?
+- redeploy CF?
+- Restore your Cloud Foundry deployment
+- on-demand service instances?
+- unused disks?
